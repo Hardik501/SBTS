@@ -1,0 +1,32 @@
+[
+{
+  "model": "courses.module",
+  "pk": 1,
+  "fields": {
+    "course": 2,
+    "title": "Introduction and Definitions",
+    "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dui faucibus in ornare quam. Massa tincidunt dui ut ornare lectus. Sollicitudin ac orci phasellus egestas tellus rutrum. \r\nEuismod nisi porta lorem mollis aliquam. Eu facilisis sed odio morbi quis commodo odio aenean. Amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan. Eget aliquet nibh praesent tristique magna. Sagittis orci a scelerisque purus semper eget. Placerat duis ultricies lacus sed turpis tincidunt id. Eget gravida cum sociis natoque penatibus.",
+    "order": 0
+  }
+},
+{
+  "model": "courses.module",
+  "pk": 2,
+  "fields": {
+    "course": 2,
+    "title": "Introduction and Definitions",
+    "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dui faucibus in ornare quam. Massa tincidunt dui ut ornare lectus. Sollicitudin ac orci phasellus egestas tellus rutrum. \r\nEuismod nisi porta lorem mollis aliquam. Eu facilisis sed odio morbi quis commodo odio aenean. Amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan. Eget aliquet nibh praesent tristique magna. Sagittis orci a scelerisque purus semper eget. Placerat duis ultricies lacus sed turpis tincidunt id. Eget gravida cum sociis natoque penatibus.",
+    "order": 1
+  }
+},
+{
+  "model": "courses.module",
+  "pk": 3,
+  "fields": {
+    "course": 2,
+    "title": "Simple Formula",
+    "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sollicitudin ac orci phasellus egestas tellus rutrum. Euismod nisi porta lorem mollis aliquam. Eu facilisis sed odio morbi quis commodo odio aenean. \r\nPlacerat duis ultricies lacus sed turpis tincidunt id. Eget gravida cum sociis natoque penatibus.",
+    "order": 2
+  }
+}
+]

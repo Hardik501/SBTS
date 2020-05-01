@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    {% if subject %}
+        {{ subject.title|title }} Courses
+    {% else %}
+        All Courses
+    {% endif %}
+{% endblock %}
+{% block mystyles %}
+    <link rel="stylesheet" href="{% static 'courses/css/course_list.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="jumbotron jumbotron-fluid banner m-0 bg-dark"style="background-color: #343a40;">
+        <div class="container text-center">
+            <h2 class="display-4" style="color:white;" >All Courses Available</h2>
+            <p class="lead" style="color:white;">learn it</p>
+        </div>
+    </div>
+    <section id="sec1">
+        <aside class="subject-sidebar">
+            <h2>Subjects</h2>
+            <ul>
+                <li>
+                    <a href="{% url 'course_list' %}" class="{% if not subject %}selected{% endif %}" >All</a>
+                </li>
+                {% for sub in subjects %}
+                    <li>
+                        <a href="{% url 'course_list_subject' sub.slug %}" class="{% if sub == subject %}selected{% endif %}">
+                            {{ sub.title|title}} <br> <span class="count text-muted small">{{ sub.courses.count }} courses </span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </aside>
+        <main class="courses"style="background-color: #0e0f15f5;">
+            {% for c in courses %}
+                {% with sub=c.subject %}
+                    <div class="course-bx"  style="background-color:#343a40s; color:white;">
+                        <h2><a href="{% url 'course_detail' c.slug %}">{{ c.title|title }}</a></h2>
+                        <div class="course-overview">
+                            {{ c.overview|truncatewords:20|safe }}
+                        </div>
+                        <p class="course-options">
+                            <a href="{% url 'course_list_subject' sub.slug %}" class="btn">
+                                {{ sub }}
+                            </a>
+                            <span class="text-muted">{{ c.total_modules }} modules</span>
+                        </p>
+                        <span> Instructor: {{ c.owner }}</span>
+                    </div>
+                {% endwith %}
+            {% empty %}
+                <p class="text-muted lead">
+                    No courses are available.
+                </p>
+            {% endfor %}
+        </main>
+    </section>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load course %}
+{% block mystyles %}
+    <link rel="stylesheet" href="{% static 'courses/css/module.css' %}">
+{% endblock %}
+{% block title %} Module {{ module.order|add:1 }}: {{ module.title|title }} {% endblock %}
+{% block content %}
+    <div class="jumbotron jumbotron-fluid bg-dark">
+        <div class="container">
+            {% with course=module.course %}
+                <h2 class="course-title" style="color:white;">{{ course.title|title }}</h2>
+                <div class="module-wrapper">
+                    <aside class="module-sidebar">
+                        <h4>Modules</h4>
+                        <ul class="module-list" id="modules">
+                            {% for m in course.modules.all %}
+                                <li data-id="{{ m.id }}">
+                                    <a href="{% url 'module_content_list' m.id %}" class="{% if m == module %}selected{%  endif %}">
+                                        <span class="text-secondary">Module <span class="order">{{ m.order|add:1 }}</span> </span>
+                                    <br>
+                                    {{ m.title|title }}
+                                    </a>
+        
+                                </li>
+                            {% empty %}
+                                <h3>No modules yet!</h3>
+                            {% endfor %}
+                        </ul>
+                        <p class="mt-5">
+                            <a href="{% url 'course_module_update' course.id %}" class="text-success font-weight-bold" style="text-decoration: none;">
+                                Edit Modules
+                            </a>
+                        </p>
+                        
+                    </aside>
+                    <div class="module">
+                        <h2>Module {{ module.order|add:1 }}: {{ module.title|title }} </h2>
+                        <h3 class="mt-5">Module contents: </h3>
+                        <div class="mx-3 my-2" id="module-contents">
+                            {% for content in module.contents.all %}
+                                <div data-id="{{ content.id }}" class="module-contents">
+                                    {% with item=content.item %}
+                                        <p>{{ item }} ({{ item|model_name }}) </p>
+                                        <div class="content-options">
+                                            <a class="btn btn-info" href="{% url 'module_content_update' module.id item|model_name item.id %}">
+                                                Edit
+                                            </a>
+                                            <form action="{% url 'module_content_delete' content.id %}" method="post">
+                                                <input type="submit" value="Delete" class="btn btn-danger">
+                                                {% csrf_token %}
+                                            </form>
+                                        </div>
+                                    {% endwith %}
+                                </div>
+                            {% empty %}
+                                <p class="">This module has No contents!</p>
+                            {% endfor %}
+                        </div>
+                        <h3 class="mx-3 my-4">Add New Content here.</h3>
+                        <ul class="content-add-list">
+                            <li><a href="{% url 'module_content_create' module.id "text" %}">Text</a></li>
+                            <li><a href="{% url 'module_content_create' module.id "image" %}">Image</a></li>
+                            <li><a href="{% url 'module_content_create' module.id "file" %}">File</a></li>
+                            <li><a href="{% url 'module_content_create' module.id "video" %}">Video</a></li>
+                            <li><a href="{% url 'module_content_create' module.id "hint" %}">Hint</a></li>
+                            <li><a href="{% url 'module_content_create' module.id "code" %}">Code</a></li>
+                            <li><a href="{% url 'module_content_create' module.id "solution" %}">Solution</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            {% endwith %}
+        </div>
+    </div>
+{% endblock %}
+<script>
+    {% block domready %}
+        $('#modules').sortable({
+            stop: function(event, ui){
+                modules_order = {};
+                $('#modules').children().each(function(){
+                    $(this).find('.order').text($(this).index() + 1);
+                    modules_order[$(this).data('id')] = $(this).index();
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "module_order" %}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    data: JSON.stringify(modules_order)
+                });
+            }
+        });
+
+        $('#module-contents').sortable({
+            stop: function(event, ui){
+                contents_order = {};
+                $('#module-contents').children().each(function(){
+                    contents_order[$(this).data('id')] = $(this).index();
+                });
+                $.ajax({
+                    method: 'POST',
+                    url: '{% url "content_order" %}',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    data: JSON.stringify(contents_order),
+                });
+            }
+        });
+    {% endblock %}
+</script>

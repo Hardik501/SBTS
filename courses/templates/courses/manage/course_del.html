@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %} Delete Course {% endblock %}
+{% block content %}
+    <div class="jumbotron bg-dark">
+        <div class="container">
+            <h2 class="display-4">Delete Course 
+                <span class="text-success" style="border-bottom: 2px dotted green;">"{{ object.title|title }}"</span>
+            </h2>
+            <form method="post">
+                {% csrf_token %}
+                <fieldset>
+                    <legend>Are you sure ?</legend>
+                    <input type="submit" value="Confirm" class="btn btn-lg btn-outline-info mr-3">
+                    <a href="{% url 'manage_course_list' %}" class="text-success font-weight-bold">No, take me back!</a>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock %}

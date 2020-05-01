@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} My Courses {% endblock %}
+{% block content %}
+    <div class="jumbotron jumbotron-fluid banner bg-dark" style="min-height: 70vh;">
+        <div class="container text-center">
+            <h2 class="display-4" style="color:black">My Courses</h2>
+            <p class="lead" style="color:black">Make course</p>
+            <a href="{% url 'course_create' %}" class="btn btn-success btn-lg">Create New Course</a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row my-5">
+            {% for obj in object_list %}
+                <div class="col-md-6 m-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color:black;">{{ obj.title|title }}</h5>
+                            <p class="card-text" style="color:black">{{ obj.overview|truncatewords_html:30 }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{% url 'course_edit' obj.pk %}" class="card-link btn btn-warning">Edit</a>
+                                <a href="{% url 'course_module_update' obj.pk %}" class="card-link btn btn-info">Edit Modules</a>
+                                {% if obj.modules.count > 0 %}
+                                    <a href="{% url 'module_content_list' obj.modules.first.id %}" class="card-link btn btn-secondary">Manage Content</a>
+                                {% endif %}
+                                <a href="{% url 'course_delete' obj.pk %}" class="card-link btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-danger font-weight-bold">You haven't created any courses yet!</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

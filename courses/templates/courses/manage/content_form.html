@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    {% if object %}
+        Edit {{ object.title|title }}
+    {% else %}
+        Add new Content
+    {% endif %}
+
+{% endblock %}
+{% block content %}
+    <div class="jumbotron jumbotron-fluid bg-dark">
+        <div class="container">
+            <h2 class="display-4">
+                {% if object %}
+                    Edit <span>"{{ object.title|title }}"</span>
+                {% else %}
+                    Add New Content
+                {% endif %}
+            </h2>
+        </div>
+        <div class="container">
+            <form method="post" enctype="multipart/form-data">
+                {{ form|crispy }}
+                {% csrf_token %}
+                <input type="submit" value="Save Content" class="btn btn-outline-success btn-lg text-upppercase">
+            </form>
+        </div>
+    </div>
+{% endblock %}

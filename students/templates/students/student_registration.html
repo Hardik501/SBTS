@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    Student Registration
+{% endblock %}
+{% block content %}
+    <div class="jumbotron bg-dark">
+        <div class="container">
+            <h2 class="display-4">Sign Up</h2>
+            <form method="post">
+                <fieldset>
+                    <legend>Enter your details to create an account:</legend>
+                    {{ form|crispy }}
+                    {% csrf_token %}
+                    <input type="submit" value="Create my Account" class="btn btn-info">
+                    <a href="/accounts/login" class="btn btn-outline-primary">  Login</a>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+{% endblock %}

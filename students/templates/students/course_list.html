@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %} My Courses {% endblock %}
+{% block content %}
+    <div class="container bg-dark">
+        <div class="courses">
+            {% for course in course_list %}
+                <div class="course-bx py-4">
+                    <h2><a style="color:white" href="{% url 'course_detail' course.slug %}">{{ course.title|title }}</a></h2>
+                    <p>
+                        <a href="{% url 'student_course_detail' course.id %}">
+                            Access Contents
+                        </a>
+                    </p>
+                </div>
+            {% empty %}
+                <p class="lead text-muted">
+                    You haven't enrolled in any courses yet!
+                    <a href="{% url 'course_list' %}">Browse All courses</a>
+                    to enroll in course and get started to boost your career.
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

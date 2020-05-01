@@ -1,0 +1,24 @@
+
+  .item{
+      font-size: medium;
+      font-style: normal;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  .item img{
+      height: 70%;
+      width: 88%;;
+  }
+  .item iframe{
+      height: 70%;
+      width: 80%;
+  }
+  .item h2{
+      font-size: inherit;
+      font-style: normal;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  .item h3{
+      font-size: inherit;
+      font-style: normal;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }

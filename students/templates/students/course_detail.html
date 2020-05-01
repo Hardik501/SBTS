@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load cache %}
+{% load staticfiles %}
+{% block title %} {{ object.title|title }} {% endblock %}
+{% block mystyles %}
+    <link rel="stylesheet" href="{% static 'students/css/item.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="container" style="display: flex;max-width: 1520px;background-color: #212529;color: white;padding-right: 0px;padding-left: 10px;overflow:hidden;">
+        <section class="course" style="overflow-x: hidden;overflow-y: auto;height: 590px;width: 30%;">
+            <h2>{{ module.title|title }}</h2>
+            <!--aside-->
+                <h3>  Modules</h3>
+                <!--ul class>
+                    {% for m in object.modules.all %}
+                        <li data-id="{{ m.id }}" class="{% if m == module %}selected{% endif %}">
+                            <a href="{% url 'student_course_detail_module' object.id m.id %}">
+                                <span>Module <span class="order">{{ m.order|add:1 }}</span></span>
+                                <br>
+                                {{ m.title|title }}
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li class="text-muted lead">No modules yet.</li>
+                    {% endfor %}
+                </ul-->
+            <!--/aside-->
+            <!--main-->
+                {% cache 600 module_contents module %}
+                {% for module in module %}
+                    <br>
+                       <h2>  {{ module.title|title }}</h2>
+                    {% for content in module.contents.all %}
+                        {% with item=content.item %}
+                            <h3 class="item">  {{ item.title|title }}</h3>
+                            <div class="item display-3">  {{ item.render }}</div>
+                        {% endwith %}
+                    {% endfor%}
+                <!--button class="btn btn-outline-success">Next</button-->
+                {% endfor %}
+                {% endcache %}
+            <!--/main-->
+        </section>
+        <section class="ide" style="width: 70%;height: auto;margin-bottom: -30px;">
+        <iframe src="https://serverxmqweg1r-jwtproxy-server-4402.192.168.39.241.nip.io/" class width="100%" height="95%"></iframe>
+        </section>
+    </div>
+{% endblock %}

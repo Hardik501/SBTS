@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %} 
+    {{ object.title|title }}
+{% endblock %}
+{% block content %}
+    <div class="panel-default jumbotron jumbotron-fluid bg-dark">
+        <div class="container ">
+            <h2 class="display-4">{{ object.title|title }}</h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="course-overview my-3">
+            <h3 class="display-4">Overview</h3>
+            <div class="course-options">
+                <p class="d-flex align-items-center text-muted my-2">
+                    <a href="{% url 'course_list_subject' object.subject.slug %}" class="mr-4 text-success font-weight-bold">{{ object.subject.title|title }}</a>
+                    <span class="mr-3">{{ object.modules.count }} modules</span>
+                    <span class="mr-4">By {{ object.owner }}</span>
+                    <span class="mr-4">{{ object.created|date:"M, d Y"}}</span>
+                </p>
+                {{ object.overview|linebreaks }}
+                <div class="my-5 mx-auto">
+                    {% if request.user.is_authenticated %}
+                        <form action="{% url 'student_enroll_course' %}" method="post">
+                            {{ enroll_form }}
+                            {% csrf_token %}
+                            <input type="submit" value="Enroll Now" class="btn  btn-light">
+                        </form>
+                    {% else %}
+                        <a href="{% url 'student_registration' %}" class="btn btn-light">Register to Enroll</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
