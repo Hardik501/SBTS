@@ -5,7 +5,7 @@ web application for hands-on training
 ```bash
 git clone https://github.com/Hardik501/SBTS.git
 ```
-## create python [virtalenv](https://docs.python.org/3/library/venv.html) 
+## create python [virtalenv](https://docs.python.org/3/library/venv.html) and follow bellowed commands
 ```bash
 pip install -r requirements.txt
 python manage.py makemigrations
